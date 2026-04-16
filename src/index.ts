@@ -13,7 +13,9 @@ export default function plugin(options?: Options): Plugin {
       if (!mdExtRE.test(id))
         return null
 
-      const ast = Markdoc.parse(code)
+      const tokenizer = new markdoc.Tokenizer({ allowIndentation: true }));
+      const tokens = tokenizer.tokenize(code)
+      const ast = Markdoc.parse(tokens)
       const content = Markdoc.transform(ast, options)
       const contentStr = JSON.stringify(content)
 
